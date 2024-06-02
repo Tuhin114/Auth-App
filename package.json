@@ -4,9 +4,11 @@
   "description": "��#\u0000 \u0000A\u0000u\u0000t\u0000h\u0000-\u0000A\u0000p\u0000p\u0000\r\u0000 \u0000",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "nodemon backend/index.js",
+    "start": "node backend/index.js"
   },
   "keywords": [],
+  "type": "module",
   "author": "",
   "license": "ISC",
   "dependencies": {
