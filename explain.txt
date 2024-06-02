@@ -67,3 +67,54 @@ This code is a simple example of setting up a basic server using Express.js, a p
    - The `app.listen()` method takes two arguments: the port number to listen on (in this case, 8000), and a callback function that will be executed once the server is successfully started. Inside the callback function, we log a message indicating that the server is running and listening on the specified port.
 
 Overall, this code sets up a simple Express server that listens for GET requests on the root path ("/") and responds with the message "Server is ready". When the server is started, it logs a message indicating that it's running on port 8000.
+
+
+## Explanation 3
+
+This code defines a router using Express.js, which is a feature of Express that allows you to modularize your routes. Let's break it down step by step:
+
+1. Importing Express:
+   ```javascript
+   import express from "express";
+   ```
+   - This imports the `express` module into the current file.
+
+2. Creating a new Express router instance:
+   ```javascript
+   const router = express.Router();
+   ```
+   - This creates a new router instance using the `express.Router()` method. This router will be used to define routes specific to a certain part of the application.
+
+3. Defining routes:
+   - Three routes are defined using the `router.get()` method:
+     ```javascript
+     router.get("/signup", (req, res) => {
+       res.json({
+         data: "You hit signup endpoint",
+       });
+     });
+     ```
+     ```javascript
+     router.get("/login", (req, res) => {
+       res.json({
+         data: "You hit login endpoint",
+       });
+     });
+     ```
+     ```javascript
+     router.get("/logout", (req, res) => {
+       res.json({
+         data: "You hit logout endpoint",
+       });
+     });
+     ```
+   - Each route handles GET requests to a specific endpoint ("/signup", "/login", "/logout").
+   - When a request is made to any of these endpoints, the corresponding callback function is executed. This function sends a JSON response indicating which endpoint was hit.
+
+4. Exporting the router instance:
+   ```javascript
+   export default router;
+   ```
+   - Finally, the router instance is exported as the default export of the module. This allows other parts of the application to import and use this router.
+
+Overall, this code sets up a router with three endpoints ("/signup", "/login", "/logout"), each responding with a JSON message indicating the endpoint that was hit when accessed via a GET request.
