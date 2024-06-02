@@ -31,3 +31,39 @@ This code seems to be a series of commands executed in a Node.js project setup p
    - It's useful during development to avoid manually restarting the server after making changes to the code.
 
 Overall, these commands set up a Node.js project with essential dependencies for building a web application or API, including a web framework (`express`), database integration (`mongoose`), authentication (`jsonwebtoken` and `bcryptjs`), environment configuration (`dotenv`), CORS handling (`cors`), cookie parsing (`cookie-parser`), image and video management (`cloudinary`), and a development tool (`nodemon`) for automatic server restarting during development.
+
+## Explanation 2
+
+This code is a simple example of setting up a basic server using Express.js, a popular web framework for Node.js. Let's break it down step by step:
+
+1. Importing Express:
+   ```javascript
+   import express from "express";
+   ```
+   - This line imports the `express` module into the current file. The `import` statement is an ES6 feature for importing modules in JavaScript.
+
+2. Creating an Express application instance:
+   ```javascript
+   const app = express();
+   ```
+   - Here, we create an instance of the Express application by invoking the `express()` function. This instance will be used to define routes, middleware, and other settings for our server.
+
+3. Defining a route:
+   ```javascript
+   app.get("/", (req, res) => {
+     res.send("Server is ready");
+   });
+   ```
+   - This code defines a route for the HTTP GET method on the root path ("/"). When a client sends a GET request to the root path of the server, the callback function `(req, res) => {...}` will be executed.
+   - Inside the callback function, `res.send("Server is ready")` sends the string "Server is ready" as the response to the client.
+
+4. Starting the server:
+   ```javascript
+   app.listen(8000, () => {
+     console.log("Server is running on PORT 8000");
+   });
+   ```
+   - This code starts the Express server and makes it listen for incoming requests on port 8000.
+   - The `app.listen()` method takes two arguments: the port number to listen on (in this case, 8000), and a callback function that will be executed once the server is successfully started. Inside the callback function, we log a message indicating that the server is running and listening on the specified port.
+
+Overall, this code sets up a simple Express server that listens for GET requests on the root path ("/") and responds with the message "Server is ready". When the server is started, it logs a message indicating that it's running on port 8000.
