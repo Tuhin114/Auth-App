@@ -118,3 +118,141 @@ This code defines a router using Express.js, which is a feature of Express that 
    - Finally, the router instance is exported as the default export of the module. This allows other parts of the application to import and use this router.
 
 Overall, this code sets up a router with three endpoints ("/signup", "/login", "/logout"), each responding with a JSON message indicating the endpoint that was hit when accessed via a GET request.
+
+## Step - 4
+This code sets up a Mongoose schema and model for managing user data in a MongoDB database. Here's a detailed breakdown:
+
+ 1. **Importing Mongoose:**
+   ```javascript
+   import mongoose from "mongoose";
+   ```
+   - **Purpose:** Mongoose is an Object Data Modeling (ODM) library for MongoDB and Node.js. It provides a straightforward, schema-based solution to model application data.
+
+ 2. **Defining the User Schema:**
+   ```javascript
+   const userSchema = new mongoose.Schema(
+     {
+       username: {
+         type: String,
+         required: true,
+         unique: true,
+       },
+       fullName: {
+         type: String,
+         required: true,
+       },
+       password: {
+         type: String,
+         required: true,
+         minLength: 6,
+       },
+       email: {
+         type: String,
+         required: true,
+         unique: true,
+       },
+     },
+     { timestamps: true }
+   );
+   ```
+   - **Purpose:** The `userSchema` defines the structure of the `User` document in the MongoDB database. Each field in the schema corresponds to a key in the document.
+
+   - **Fields:**
+     - `username`:
+       - **Type:** `String`
+       - **Attributes:** 
+         - `required: true` - The field is mandatory; a user document cannot be created without a username.
+         - `unique: true` - Ensures that no two users can have the same username.
+     - `fullName`:
+       - **Type:** `String`
+       - **Attributes:** 
+         - `required: true` - The field is mandatory.
+     - `password`:
+       - **Type:** `String`
+       - **Attributes:**
+         - `required: true` - The field is mandatory.
+         - `minLength: 6` - The password must be at least 6 characters long, ensuring a basic level of security.
+     - `email`:
+       - **Type:** `String`
+       - **Attributes:**
+         - `required: true` - The field is mandatory.
+         - `unique: true` - Ensures that no two users can have the same email address.
+
+   - **Options:**
+     - `timestamps: true`: 
+       - **Purpose:** Automatically adds `createdAt` and `updatedAt` fields to the schema, which are managed by Mongoose. `createdAt` stores the time when the document was created, and `updatedAt` stores the time when the document was last updated.
+
+ 3. **Creating the User Model:**
+   ```javascript
+   const User = mongoose.model("User", userSchema);
+   ```
+   - **Purpose:** This line creates the `User` model based on the `userSchema`. The model serves as a constructor for creating and interacting with user documents in the MongoDB database. It provides methods for CRUD operations (Create, Read, Update, Delete).
+
+ 4. **Exporting the User Model:**
+   ```javascript
+   export default User;
+   ```
+   - **Purpose:** The `User` model is exported, making it available for import in other parts of the application. This allows the application to interact with the `users` collection in MongoDB using the `User` model.
+
+ **Summary:**
+The code defines a `User` schema with fields for username, full name, password, and email, each with specific requirements like uniqueness and mandatory presence. The schema is then used to create a `User` model, which is exported for use in other modules to perform database operations on the `users` collection. The timestamps option automatically tracks when each user document is created and last updated.
+
+
+
+### Detailed Explanation:
+This code snippet demonstrates how to establish a connection to a MongoDB database using Mongoose, handling potential errors and logging the connection status.
+
+#### 1. **Importing Mongoose:**
+   ```javascript
+   import mongoose from "mongoose";
+   ```
+   - **Purpose:** Mongoose is imported to manage interactions between the Node.js application and MongoDB. It simplifies database operations by providing an abstraction layer over the MongoDB native driver.
+
+#### 2. **Defining the `connectMongoDB` Function:**
+   ```javascript
+   const connectMongoDB = async () => {
+   ```
+   - **Purpose:** The `connectMongoDB` function is defined as an asynchronous function to allow the use of `await` for asynchronous operations, specifically for connecting to the MongoDB database.
+
+#### 3. **Using a `try...catch` Block:**
+   ```javascript
+   try {
+   ```
+   - **Purpose:** A `try...catch` block is used to handle any errors that might occur during the connection attempt. This ensures that the application can log meaningful error messages and handle failures gracefully.
+
+#### 4. **Connecting to MongoDB:**
+   ```javascript
+   const conn = await mongoose.connect(process.env.MONGO_URI);
+   ```
+   - **Purpose:** 
+     - The `mongoose.connect()` method is called with the MongoDB connection string, which is stored in the `MONGO_URI` environment variable.
+     - `await` is used to pause the execution of the function until the connection is established, allowing for synchronous-like code flow.
+     - The connection details are stored in the `conn` variable upon successful connection.
+
+#### 5. **Logging Success:**
+   ```javascript
+   console.log(`MongoDB connected: ${conn.connection.host}`);
+   ```
+   - **Purpose:** If the connection is successful, a message is logged to the console indicating that MongoDB is connected, including the host name of the MongoDB server.
+
+#### 6. **Handling Connection Errors:**
+   ```javascript
+   } catch (error) {
+   console.error(`Error connecting to MongoDB: ${error.message}`);
+   process.exit(1);
+   }
+   ```
+   - **Purpose:** 
+     - If an error occurs during the connection attempt, it is caught by the `catch` block.
+     - The error message is logged to the console, providing details on what went wrong.
+     - `process.exit(1)` is called to terminate the Node.js process with a status code of 1, indicating that the application has failed to connect to MongoDB and cannot continue running.
+
+#### 7. **Exporting the `connectMongoDB` Function:**
+   ```javascript
+   export default connectMongoDB;
+   ```
+   - **Purpose:** The `connectMongoDB` function is exported as the default export, making it available for import in other parts of the application. This allows the application to establish a connection to MongoDB by simply calling this function.
+
+### **Summary:**
+The `connectMongoDB` function is designed to connect to a MongoDB database using Mongoose. It handles both success and failure cases by logging appropriate messages and exiting the process if a connection cannot be established. The function is exported for use throughout the application, providing a centralized way to manage the database connection.
+
