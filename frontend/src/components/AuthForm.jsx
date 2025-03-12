@@ -1,8 +1,16 @@
 import { useState } from "react";
 import InputField from "./InputField";
 import "./styles.css";
+import { useNavigate } from "react-router-dom";
 
-export default function AuthForm({ title, buttonText, fields, onSubmit }) {
+export default function AuthForm({
+  title,
+  buttonText,
+  fields,
+  onSubmit,
+  setIsAuthenticated,
+}) {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState(
     fields.reduce((acc, field) => ({ ...acc, [field.name]: "" }), {})
   );
@@ -20,10 +28,13 @@ export default function AuthForm({ title, buttonText, fields, onSubmit }) {
 
     try {
       const response = await onSubmit(formData);
-      if (response.success) {
-        alert("Success! Redirecting...");
+      if (response.message) {
+        console.log(response);
+        console.log(setIsAuthenticated);
+        setIsAuthenticated(true);
+        navigate("/home");
       } else {
-        setError(response.message || "Something went wrong.");
+        setError(response.error);
       }
     } catch {
       setError("Failed to connect to the server.");

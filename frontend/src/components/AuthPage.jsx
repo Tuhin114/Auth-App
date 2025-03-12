@@ -3,12 +3,16 @@ import SignUp from "./SignUp";
 import SignIn from "./SignIn";
 import "./styles.css";
 
-export default function AuthPage() {
+export default function AuthPage({ setIsAuthenticated }) {
   const [isSignUp, setIsSignUp] = useState(true);
 
   return (
     <div className="container">
-      {isSignUp ? <SignUp /> : <SignIn />}
+      {isSignUp ? (
+        <SignUp setIsAuthenticated={setIsAuthenticated} />
+      ) : (
+        <SignIn setIsAuthenticated={setIsAuthenticated} />
+      )}
       <div className="footer">
         <div onClick={() => setIsSignUp(!isSignUp)}>
           {isSignUp

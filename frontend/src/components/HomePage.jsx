@@ -4,6 +4,7 @@ export default function HomePage() {
   const navigate = useNavigate();
 
   const handleLogout = () => {
+    console.log("logout");
     localStorage.removeItem("token");
     navigate("/");
   };

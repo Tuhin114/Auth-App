@@ -7,9 +7,17 @@ import {
 import AuthPage from "./components/AuthPage";
 import HomePage from "./components/HomePage";
 import Nav from "./components/Nav";
+import { useEffect, useState } from "react";
 
 function App() {
-  const isAuthenticated = false; // Check if token exists
+  const [isAuthenticated, setIsAuthenticated] = useState(
+    localStorage.getItem("isAuthenticated") === "true"
+  );
+
+  // 🔥 Save authentication state to localStorage when it changes
+  useEffect(() => {
+    localStorage.setItem("isAuthenticated", isAuthenticated);
+  }, [isAuthenticated]);
 
   return (
     <Router>
@@ -18,11 +26,23 @@ function App() {
         {/* If authenticated, go to HomePage; otherwise, go to Login */}
         <Route
           path="/"
-          element={isAuthenticated ? <Navigate to="/home" /> : <AuthPage />}
+          element={
+            isAuthenticated ? (
+              <Navigate to="/home" />
+            ) : (
+              <AuthPage setIsAuthenticated={setIsAuthenticated} />
+            )
+          }
         />
         <Route
           path="/home"
-          element={isAuthenticated ? <HomePage /> : <Navigate to="/" />}
+          element={
+            isAuthenticated ? (
+              <HomePage setIsAuthenticated={setIsAuthenticated} />
+            ) : (
+              <Navigate to="/" />
+            )
+          }
         />
       </Routes>
     </Router>
