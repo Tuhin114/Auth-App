@@ -8,6 +8,7 @@ import AuthPage from "./components/AuthPage";
 import HomePage from "./components/HomePage";
 import Nav from "./components/Nav";
 import { useEffect, useState } from "react";
+import { Toaster } from "react-hot-toast";
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(
@@ -48,6 +49,7 @@ function App() {
           }
         />
       </Routes>
+      <Toaster />
     </Router>
   );
 }

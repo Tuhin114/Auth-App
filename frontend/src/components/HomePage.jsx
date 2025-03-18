@@ -1,62 +1,52 @@
-// import { useNavigate } from "react-router-dom";
-
 export default function HomePage() {
-  // const navigate = useNavigate();
-
-  // const handleLogout = () => {
-  //   console.log("logout");
-  //   localStorage.removeItem("token");
-  //   navigate("/");
-  // };
-
   return (
     <>
       <div className="container">
         <div className="card-container">
           <h1 className="home-card-title card-title">Welcome to Auth</h1>
           <p className="card-description">A modern authentication solution</p>
-          <div class="blog-container">
-            <div class="blog-card">
-              <div class="blog-card-header">
-                <div class="icon-box">
+          <div className="blog-container">
+            <div className="blog-card">
+              <div className="blog-card-header">
+                <div className="icon-box">
                   <img src="frontend-icon.png" alt="Code Icon" />
                 </div>
                 <div>
-                  <h3 class="blog-card-title">Frontend Authentication</h3>
-                  <p class="blog-card-description">
+                  <h3 className="blog-card-title">Frontend Authentication</h3>
+                  <p className="blog-card-description">
                     Implementing client-side authentication flow
                   </p>
                 </div>
               </div>
-              <div class="blog-card-content">
+              <div className="blog-card-content">
                 <p>
                   Learn about implementing authentication in React with secure
                   token management and protected routes.
                 </p>
-                <a href="#frontend-blog" class="continue-button blog">
+                <a href="#frontend-blog" className="continue-button blog">
                   Read Article →
                 </a>
               </div>
             </div>
 
-            <div class="blog-card">
-              <div class="blog-card-header">
-                <div class="icon-box">
+            <div className="blog-card">
+              <div className="blog-card-header">
+                <div className="icon-box">
                   <img src="frontend-icon.png" alt="Code Icon" />
                 </div>
                 <div>
-                  <h3 class="blog-card-title">Frontend Authentication</h3>
-                  <p class="blog-card-description">
+                  <h3 className="blog-card-title">Frontend Authentication</h3>
+                  <p className="blog-card-description">
                     Implementing client-side authentication flow
                   </p>
                 </div>
               </div>
-              <div class="blog-card-content">
+              <div className="blog-card-content">
                 <p>
                   Learn about implementing authentication in React with secure
                   token management and protected routes.
                 </p>
-                <a href="#frontend-blog" class="continue-button blog">
+                <a href="#frontend-blog" className="continue-button blog">
                   Read Article →
                 </a>
               </div>

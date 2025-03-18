@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import "./api";
-import "./styles.css";
 import { useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
 import { logOutCall } from "./api";
 import githubLogo from "../assets/github-142-svgrepo-com.svg";
+import "./styles.css";
 
 const Nav = ({ isAuthenticated, setIsAuthenticated }) => {
   const [loading, setLoading] = useState(false);
@@ -12,17 +12,35 @@ const Nav = ({ isAuthenticated, setIsAuthenticated }) => {
   const handleLogout = async () => {
     setLoading(true);
     try {
-      const response = await logOutCall();
-      console.log(response);
+      await logOutCall();
       localStorage.removeItem("isAuthenticated");
       setIsAuthenticated(false);
 
+      toast.success("Logged out successfully!", {
+        duration: 3000,
+        position: "bottom-left",
+        style: {
+          borderRadius: "10px",
+          background: "#333",
+          color: "#fff",
+        },
+      });
+
       navigate("/");
-    } catch (error) {
-      console.error("Error logging out:", error);
+    } catch {
+      toast.error("Logout failed. Please try again!", {
+        duration: 3000,
+        position: "bottom-left",
+        style: {
+          borderRadius: "10px",
+          background: "#ff4d4f",
+          color: "#fff",
+        },
+      });
     }
     setLoading(false);
   };
+
   return (
     <div className="nav">
       <div className="nav-container">
@@ -34,7 +52,7 @@ const Nav = ({ isAuthenticated, setIsAuthenticated }) => {
             className="logout-button"
             onClick={handleLogout}
           >
-            Log out
+            {loading ? "Logging out..." : "Log out"}
           </button>
         ) : (
           <a
