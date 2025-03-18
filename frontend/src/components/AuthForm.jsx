@@ -28,48 +28,25 @@ export default function AuthForm({
     try {
       const response = await onSubmit(formData);
 
-      if (response.message) {
-        toast.success(response.message, {
-          duration: 3000,
-          position: "bottom-left",
-          style: {
-            borderRadius: "10px",
-            background: "#333",
-            color: "#fff",
-          },
-          iconTheme: {
-            primary: "#4CAF50",
-            secondary: "#fff",
-          },
-        });
-
-        setIsAuthenticated(true);
-        navigate("/home");
-      } else {
-        toast.error(response.error || "Something went wrong!", {
-          duration: 4000,
-          position: "bottom-left",
-          style: {
-            borderRadius: "10px",
-            background: "#ff4d4f",
-            color: "#fff",
-          },
-          iconTheme: {
-            primary: "#fff",
-            secondary: "#ff4d4f",
-          },
-        });
-        console.log(response);
+      if (response.error) {
+        throw new Error(response.error);
       }
-    } catch {
-      toast.error("Failed to connect to the server!", {
+
+      toast.success(response.message || "Success!", {
+        duration: 3000,
+        position: "bottom-left",
+        style: { borderRadius: "10px", background: "#333", color: "#fff" },
+        iconTheme: { primary: "#4CAF50", secondary: "#fff" },
+      });
+
+      setIsAuthenticated(true);
+      navigate("/home");
+    } catch (error) {
+      toast.error(error.message, {
         duration: 4000,
-        position: "top-center",
-        style: {
-          borderRadius: "10px",
-          background: "#ff4d4f",
-          color: "#fff",
-        },
+        position: "bottom-left",
+        style: { borderRadius: "10px", background: "#ff4d4f", color: "#fff" },
+        iconTheme: { primary: "#fff", secondary: "#ff4d4f" },
       });
     }
 
