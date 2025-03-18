@@ -21,7 +21,10 @@ function App() {
 
   return (
     <Router>
-      <Nav />
+      <Nav
+        setIsAuthenticated={setIsAuthenticated}
+        isAuthenticated={isAuthenticated}
+      />
       <Routes>
         {/* If authenticated, go to HomePage; otherwise, go to Login */}
         <Route
