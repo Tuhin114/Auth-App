@@ -1,4 +1,40 @@
-/* Reset and base styles */
+/* ─── Theme Variables ───────────────────────────────────────────── */
+:root {
+  --font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+    Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  --background-color: #fafafa;
+  --text-color: #333;
+  --nav-bg: #ffffff;
+  --nav-baseline: #d6d6d6;
+  --card-bg: #ffffff;
+  --card-border: #ddd;
+  --card-shadow: rgba(0, 0, 0, 0.1);
+  --primary-color: #000;
+  --primary-logo-bd-color: #fff;
+  --secondary-color: #fff;
+  --error-color: #ff4d4f;
+  --link-color: #2563eb;
+  --link-hover: #1e40af;
+  --footer-text: #6b7280;
+}
+
+.dark {
+  --background-color: #121212;
+  --text-color: #e0e0e0;
+  --nav-bg: #121212;
+  --nav-baseline: #333;
+  --card-bg: #171717;
+  --card-border: #333;
+  --primary-color: #fff;
+  --primary-logo-bd-color: #121212;
+  --secondary-color: #000;
+  --error-color: #ff4d4f;
+  --link-color: #2563eb;
+  --link-hover: #1e40af;
+  --footer-text: var(--text-color);
+}
+
+/* ─── Reset and Base Styles ───────────────────────────────────── */
 * {
   margin: 0;
   padding: 0;
@@ -6,17 +42,19 @@
 }
 
 body {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
-    Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
-  background: #fafafa;
+  font-family: var(--font-family);
+  background: var(--background-color);
+  color: var(--text-color);
   min-height: 100vh;
+  transition: background 0.3s, color 0.3s;
 }
 
+/* ─── Navigation ────────────────────────────────────────────────── */
 .nav {
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-color: #ffffff;
+  background-color: var(--nav-bg);
 }
 
 .nav-container {
@@ -30,7 +68,7 @@ body {
 .nav-base-line {
   width: 100%;
   height: 1px;
-  background-color: #d6d6d6;
+  background-color: var(--nav-baseline);
 }
 
 .nav-title {
@@ -44,7 +82,14 @@ body {
   height: 25px;
 }
 
-/* Main content styles */
+nav-buttons {
+  display: flex;
+  gap: 15px;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ─── Layout ────────────────────────────────────────────────────── */
 .container {
   display: flex;
   flex-direction: column;
@@ -54,17 +99,18 @@ body {
   margin-top: 15px;
 }
 
-/* Card Container */
+/* ─── Card Container ────────────────────────────────────────────── */
 .card-container {
   display: flex;
-  justify-content: center;
   flex-direction: column;
+  justify-content: center;
   width: 100%;
   max-width: 450px;
   padding: 32px;
-  background: white;
+  background: var(--card-bg);
   border-radius: 12px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 4px var(--card-shadow);
+  border: 1px solid var(--card-border);
 }
 
 .card-title {
@@ -84,22 +130,33 @@ body {
 
 .home-card-title {
   font-size: 36px;
-  margin-bottom: 0px;
+  margin-bottom: 0;
 }
 
+.home-card {
+  max-width: 700px;
+}
+
+/* ─── Blog Cards ────────────────────────────────────────────────── */
 .blog-container {
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: repeat(
+    auto-fit,
+    minmax(300px, 1fr)
+  ); /* Two columns on large screens */
   gap: 20px;
+  justify-content: center;
+  width: 100%;
+  max-width: 900px;
+  margin: auto;
   opacity: 0;
   animation: fadeIn 0.5s ease-in-out 0.2s forwards;
 }
 
 .blog-card {
-  background: white;
-  border: 1px solid #ddd;
-  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  box-shadow: 0 4px 8px var(--card-shadow);
   border-radius: 10px;
   padding: 24px;
   transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
@@ -107,7 +164,7 @@ body {
 
 .blog-card:hover {
   transform: translateY(-5px);
-  box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
 }
 
 .blog-card-header {
@@ -135,6 +192,7 @@ body {
   margin-bottom: 10px;
 }
 
+/* ─── Animations ───────────────────────────────────────────────── */
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -146,7 +204,7 @@ body {
   }
 }
 
-/* Form Styles */
+/* ─── Form Styles ───────────────────────────────────────────────── */
 .form-container {
   display: flex;
   flex-direction: column;
@@ -161,14 +219,16 @@ body {
   border-radius: 8px;
   outline: none;
   transition: all 0.2s;
+  background: var(--card-bg);
+  color: var(--text-color);
 }
 
 .input-field:focus {
   border-color: transparent;
-  box-shadow: 0 0 0 2px #000;
+  box-shadow: 0 0 0 2px var(--primary-color);
 }
 
-/* Button */
+/* ─── Buttons ───────────────────────────────────────────────────── */
 .continue-button {
   display: flex;
   align-items: center;
@@ -178,8 +238,8 @@ body {
   padding: 12px;
   font-size: 14px;
   font-weight: 500;
-  color: white;
-  background-color: #000;
+  color: var(--secondary-color);
+  background-color: var(--primary-color);
   border: none;
   border-radius: 6px;
   cursor: pointer;
@@ -192,65 +252,64 @@ body {
   gap: 12px;
 }
 
+.logout {
+  width: 90px;
+  height: 32px;
+  padding: 6px;
+}
 .signup {
-  color: white;
-  background-color: #000;
+  color: var(--secondary-color);
+  background-color: var(--primary-color);
 }
 
 .signin {
-  color: black;
-  background-color: white;
+  color: var(--primary-color);
+  background-color: var(--secondary-color);
   border: 1px solid #ccc;
 }
 
 .blog {
   text-decoration: none;
   background-color: transparent;
-  color: black;
-  border: 1px solid #ddd;
+  color: var(--primary-color);
+  border: 1px solid var(--card-border);
   transition: all 0.3s ease-in-out;
 }
 
 .blog:hover {
-  background-color: #000;
-  color: white;
+  background-color: var(--primary-color);
+  color: var(--secondary-color);
 }
 
-.logout-button {
-  display: flex;
+.dark-mode-button {
+  display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 8px;
-  width: 90px;
-  height: 32px;
-  padding: 6px;
-  font-size: 14px;
-  font-weight: 500;
-  color: white;
-  background-color: #000;
+  padding: 6px 12px;
+
   border: none;
-  border-radius: 6px;
   cursor: pointer;
-  transition: background-color 0.2s;
+  background: var(--primary-logo-bd-color);
+  color: var(--primary-color);
 }
 
-/* Footer */
+/* ─── Footer ───────────────────────────────────────────────────── */
 .footer {
   text-align: center;
   margin-top: 20px;
   font-size: 14px;
-  color: #6b7280;
+  color: var(--footer-text);
 }
 
 .footer div {
   cursor: pointer;
-  color: #2563eb;
+  color: var(--link-color);
   font-weight: 500;
   transition: color 0.3s ease-in-out;
 }
 
 .footer div:hover {
-  color: #1e40af;
+  color: var(--link-hover);
 }
 
 .footer a {
@@ -260,43 +319,31 @@ body {
   transition: color 0.3s ease-in-out;
 }
 
-/* Responsive Styles */
+/* ─── Responsive Styles ────────────────────────────────────────── */
 @media (max-width: 768px) {
-  .header {
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    padding: 12px;
+  .nav-container {
+    padding: 12px 20px;
   }
-
-  .nav-links {
-    flex-direction: column;
-    gap: 8px;
-  }
-
-  .main {
+  .container {
     padding: 100px 16px 32px;
   }
-
   .card-container {
     width: 90%;
-    min-width: unset;
     padding: 24px;
   }
-
   .card-title {
     font-size: 24px;
   }
-
+  .blog-container {
+    grid-template-columns: 1fr; /* Stack blog cards in one column */
+  }
   .input-field {
     font-size: 16px;
     padding: 10px 14px;
   }
-
   .continue-button {
     font-size: 16px;
   }
-
   .footer {
     font-size: 12px;
     margin-top: 16px;
@@ -304,28 +351,23 @@ body {
 }
 
 @media (max-width: 480px) {
-  .main {
+  .container {
     padding: 80px 12px 24px;
   }
-
   .card-container {
     width: 100%;
     padding: 20px;
   }
-
   .card-title {
     font-size: 22px;
   }
-
   .input-field {
     font-size: 14px;
     padding: 10px 12px;
   }
-
   .continue-button {
     font-size: 14px;
   }
-
   .footer {
     font-size: 12px;
     margin-top: 12px;

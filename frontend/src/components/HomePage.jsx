@@ -2,7 +2,7 @@ export default function HomePage() {
   return (
     <>
       <div className="container">
-        <div className="card-container">
+        <div className="card-container home-card">
           <h1 className="home-card-title card-title">Welcome to Auth</h1>
           <p className="card-description">A modern authentication solution</p>
           <div className="blog-container">
